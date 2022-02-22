@@ -4,6 +4,8 @@
 
 Easy to use GUI wrapper for running NLG models from HuggingFace locally. 
 
+![Screenshot](/UI.png?raw=true)
+
 Main third party libraries are PySimpleGUI and
 aitextgen
 
