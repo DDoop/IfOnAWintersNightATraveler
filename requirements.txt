@@ -1,0 +1,4 @@
+PySimpleGUI==4.57.0
+
+future~=0.18.2
+aitextgen~=0.5.2
