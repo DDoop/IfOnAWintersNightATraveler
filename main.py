@@ -1,5 +1,11 @@
 import PySimpleGUI as sg
 
+import packaging
+import packaging.version
+import packaging.specifiers
+import packaging.requirements
+import torch._C
+
 import EventLoop
 import TextGenWindow
 

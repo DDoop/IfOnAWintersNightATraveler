@@ -14,7 +14,7 @@ class TextGenWindow(sg.Window):
         self.result_window_active = False
         self.settings_window_active = False
 
-        if not os.path.isdir("aitextgen") and sg.user_settings_get_entry("cache_dir") is None:
+        if sg.user_settings_get_entry("cache_dir") is None:
             new_dir = sg.PopupGetFolder(
                 title="Cache size warning",
                 message="Would you like to change the folder the models are stored in?\n"
@@ -24,6 +24,18 @@ class TextGenWindow(sg.Window):
             )
             if new_dir is not None:
                 sg.user_settings_set_entry("cache_dir", new_dir)
+            else:
+                default_dir = os.path.abspath("aitextgen/")
+                sg.user_settings_set_entry("cache_dir", default_dir)
+
+        if sg.user_settings_get_entry("on_gpu") is None:
+            ans = sg.PopupYesNo("Run models on GPU?")
+            if ans == "Yes":
+                ans = True
+            else:
+                ans = False
+
+            sg.user_settings_set_entry("on_gpu", ans)
 
         self.generator = Generator.Generator(self)
 

@@ -26,7 +26,8 @@ class MainLayout:
         ],
         [
             sg.Text('Currently loaded model:'),
-            sg.Text("Model pending...", key="-MODEL_LABEL-")
+            sg.Text("Model pending...", key="-MODEL_LABEL-"),
+            sg.Text("", key="-MODEL_LOCATION-"),
         ],
         [
             sg.Listbox(
@@ -152,8 +153,21 @@ class SettingsLayout:
                 sg.Text("Model cache directory:"),
             ],
             [
-                sg.Input(key='-SETTINGS_CACHE_DIR_INPUT-', readonly=True),
+                sg.Input(
+                    key='-SETTINGS_CACHE_DIR_INPUT-',
+                    readonly=True,
+                    default_text=sg.user_settings_get_entry("cache_dir"),
+                    expand_x=True,
+                    text_color='black'
+                ),
                 sg.FolderBrowse("Select", target="-SETTINGS_CACHE_DIR_INPUT-")
+            ],
+            [
+                sg.HorizontalSeparator()
+            ],
+            [
+                sg.Text("Load model to GPU:"),
+                sg.Checkbox("Yes", key='-SETTINGS_LOAD_TO_GPU-', default=sg.user_settings_get_entry("on_gpu"))
             ],
             [
                 sg.HorizontalSeparator()

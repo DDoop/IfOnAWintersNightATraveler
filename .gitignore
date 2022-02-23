@@ -3,3 +3,5 @@ results/
 venv/
 .idea/
 __pycache__/
+build.py
+main.json

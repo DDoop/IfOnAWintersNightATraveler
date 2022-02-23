@@ -31,6 +31,10 @@ class MainEventLoop:
             SettingsEventLoop.settings_popup(window)
 
         if event == "-HALT-":
+            # print(generator.threads)
+            # [print(dir(thread)) for thread in generator.threads]
+            # [print(thread.is_alive()) for thread in generator.threads]
+            # [print(thread.daemon) for thread in generator.threads]
             # TODO
             pass
 
@@ -104,6 +108,11 @@ Length: {generator.word_count}\n"
                 new_possible_model_index = 0
             window['-MODEL_SELECT-'].update(set_to_index=new_possible_model_index)
 
+            if sg.user_settings_get_entry("on_gpu"):
+                window['-MODEL_LOCATION-'].update("Model on GPU")
+            else:
+                window['-MODEL_LOCATION-'].update("Model on CPU")
+
         if event == "-MODEL_SWAP-":
             window.set_cursor("watch")
             window['-MODEL_SWAP-'].update(disabled=True)
@@ -164,6 +173,7 @@ class SettingsEventLoop:
             yn = sg.PopupYesNo("This will close the application, is that ok?")
             if yn == 'Yes':
                 sg.user_settings_set_entry("cache_dir", values['-SETTINGS_CACHE_DIR_INPUT-'])
+                sg.user_settings_set_entry("on_gpu", values["-SETTINGS_LOAD_TO_GPU-"])
                 s_window.close()
                 main_window.close()
                 return -1
@@ -176,7 +186,7 @@ class SettingsEventLoop:
         l = Layout.SettingsLayout.generate_settings_layout()
         if window.settings_window:
             window.settings_window.close()
-        window.settings_window = sg.Window("Settings", layout=l, finalize=True)
+        window.settings_window = sg.Window("Settings", layout=l, finalize=True, size=(700,200))
 
 
 def copy2clip(txt):
