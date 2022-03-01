@@ -105,14 +105,14 @@ class ResultsLayout:
 
     @staticmethod
     def calculate_row_height(text):
-        y_size = 1
+        y_size = 2
         if "\n" in text:
             y_size += text.count("\n")
         return y_size
 
     @staticmethod
     def _prepare_result_row(n, m, result):
-        result = "\n".join(wrap(result, 60))
+        result = "\n".join(wrap(result, 50))
         y_size = ResultsLayout.calculate_row_height(result)
 
         rr = [
@@ -120,7 +120,15 @@ class ResultsLayout:
                 sg.Text(f"{n + 1} of {m}", key=f'-RESULT_{n}_POSITION-'),
             ],
             [
-                sg.Text(f"{result.strip()}", key=f'-RESULT_{n}_TEXT-', size=(45, y_size)),
+                sg.Multiline(
+                    f"{result.strip()}",
+                    key=f'-RESULT_{n}_TEXT-',
+                    size=(45, y_size),
+                    disabled=True,
+                    background_color=sg.theme_background_color(),
+                    no_scrollbar=True,
+                    border_width=0,
+                ),
                 sg.Column(
                     layout=[
                         [sg.Button("Copy", key=f'-COPY_RESULT_{n}-')],

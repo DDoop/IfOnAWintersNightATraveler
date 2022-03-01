@@ -1,11 +1,5 @@
 import PySimpleGUI as sg
 
-import packaging
-import packaging.version
-import packaging.specifiers
-import packaging.requirements
-import torch._C
-
 import EventLoop
 import TextGenWindow
 
@@ -14,6 +8,10 @@ window = TextGenWindow.TextGenWindow()
 
 while True:
     if EventLoop.MainEventLoop.main_event_loop(window) == -1:
+        if window.result_window_active:
+            window.result_window.close()
+        if window.settings_window_active:
+            window.settings_window.close()
         break
 
     if window.result_window_active:

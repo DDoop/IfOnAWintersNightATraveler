@@ -146,7 +146,7 @@ class ResultEventLoop:
 
         if event[:len('-SUBMIT_RESULT')] == '-SUBMIT_RESULT':
             n = int(event[len('-SUBMIT_RESULT') + 1:-1])
-            new_prompt = r_window[f'-RESULT_{n}_TEXT-'].DisplayText
+            new_prompt = values[f'-RESULT_{n}_TEXT-']
             main_window.new_result_set_from_result(new_prompt)
             return
 

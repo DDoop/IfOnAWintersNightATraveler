@@ -33,17 +33,13 @@ class Generator:
             else:
                 sg.PopupAnnoying("Tried to load model to GPU but CUDA wasn't available.")
 
-        if sg.user_settings_get_entry("cache_dir") is not None:
-            self._ai = aitextgen(
-                model=Models.current_model,
-                cache_dir=sg.user_settings_get_entry("cache_dir"),
-                to_gpu=gpu
-            )
-            self.model_loaded = True
+        if sg.user_settings_get_entry("cache_dir") is None:
+            raise Exception()
         else:
             self._ai = aitextgen(
                 model=Models.current_model,
-                to_gpu=gpu
+                to_gpu=gpu,
+                cache_dir=sg.user_settings_get_entry("cache_dir")
             )
             self.model_loaded = True
 
